@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ionic.Zip;
 
 namespace ProjectUpdater
 {
@@ -15,13 +16,25 @@ namespace ProjectUpdater
         static void Main(string[] args)
         {
             //Parse all arguments
-            foreach (string arg in args)
+            /*
+            for (int i = 0; i < args.Length; i++)
             {
-                if(arg == "update")
+                if (args[i] == "update")
                 {
 
                 }
-            }
+
+                if (args[i] == "gen")
+                {
+                    var gen = new RepoGenerator();
+                    gen.ConvertFolder(@"D:\Games\SteamApps\common\Arma 3\@stui");
+                }
+            }*/
+
+            var gen = new RepoGenerator();
+            gen.ConvertFolder(@"D:\Games\SteamApps\common\Arma 3\@stui", @"D:\Games\SteamApps\common\Arma 3\RepoGenTest");
+
+            Console.Read();
         }
     }
 }

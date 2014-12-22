@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 using Ionic.Zip;
+using System.Security.Cryptography;
 
 namespace ProjectUpdater
 {
@@ -74,7 +75,21 @@ namespace ProjectUpdater
                         Directory.SetCurrentDirectory(path);
                         zip.AddFile(file.Remove(0,1));
                         zip.Save(outputpath + file + ".zip");
+                        
                     }
+
+                    //Make hash of file
+                    byte[] FileData;
+                    using (var md5 = MD5.Create())
+                    {
+                        using (var stream = File.OpenRead(outputpath + file + ".zip"))
+                        {
+                            FileData = md5.ComputeHash(stream);
+                        }
+                    }
+
+                    string ParsedHash = Utility.ToHex(FileData, false);
+                    File.WriteAllText(outputpath + file + ".hash", ParsedHash);
                 }
 
                 //Re run the function for new folders

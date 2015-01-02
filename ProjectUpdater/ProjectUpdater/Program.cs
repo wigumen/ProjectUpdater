@@ -24,8 +24,8 @@ namespace ProjectUpdater
             }
              * */
 
-            var RepoGen = new RepoGenerator();
-            RepoGen.Generate(@"C:\TestGenerate\mods", @"C:\TestGenerate\output");
+            var updater = new Updater();
+            updater.UpdateRepo("http://localhost", @"C:\TestGenerate\download");
             
         }
     }

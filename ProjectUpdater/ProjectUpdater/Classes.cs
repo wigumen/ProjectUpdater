@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProjectUpdater
 {
-    class Classes
+    class FileObject
     {
-
+        public string[] Files { get; set; }
+        public string[] Directories { get; set; }
     }
 }

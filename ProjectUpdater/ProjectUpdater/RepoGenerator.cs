@@ -55,9 +55,10 @@ namespace ProjectUpdater
 
                 File.WriteAllLines(outputpath + "\\modlist.cfg", ParsedAllDirectories);
 
-                foreach(string mod in ParsedAllDirectories)
+                for (int i = 0; i < ParsedAllDirectories.Length; i++)
                 {
-                    ConvertFolder(path + "\\" + mod, outputpath + "\\" + mod);
+                    ConvertFolder(path + "\\" + ParsedAllDirectories[i], outputpath + "\\" + ParsedAllDirectories[i]);
+                    Log.add("Generate progress: " + (i + 1) + "/" + (ParsedAllDirectories.Length));
                 }
 
             }

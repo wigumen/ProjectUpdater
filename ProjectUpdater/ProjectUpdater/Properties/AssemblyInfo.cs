@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("ProjectUpdater")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Wigumen")]
 [assembly: AssemblyProduct("ProjectUpdater")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © RIPRIP 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

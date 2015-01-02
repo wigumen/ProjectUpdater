@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{03812214-B0F7-4F17-B77B-D0719CC5AEA0}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectUpdater</RootNamespace>
     <AssemblyName>ProjectUpdater</AssemblyName>
@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ProjectUpdater.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
       <HintPath>.\Ionic.Zip.dll</HintPath>
@@ -58,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="RepoGenerator.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Utility.cs" />

@@ -34,7 +34,8 @@ namespace ProjectUpdater
                     {
                         Log.add(e.Message);
                     }
-                } else
+                }
+                if (!Directory.Exists(outputpath))
                 {
                     try
                     {
@@ -57,8 +58,8 @@ namespace ProjectUpdater
 
                 for (int i = 0; i < ParsedAllDirectories.Length; i++)
                 {
-                    ConvertFolder(path + "\\" + ParsedAllDirectories[i], outputpath + "\\" + ParsedAllDirectories[i]);
                     Log.add("Generate progress: " + (i + 1) + "/" + (ParsedAllDirectories.Length));
+                    ConvertFolder(path + "\\" + ParsedAllDirectories[i], outputpath + "\\" + ParsedAllDirectories[i]);
                 }
 
             }

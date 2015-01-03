@@ -70,7 +70,13 @@ namespace ProjectUpdater
 
             foreach(string file in Files)
             {
-                DownloadQueue.Add(new Uri(URL + "/" + file + ".zip"));
+                if (file != "SU.version")
+                {
+                    DownloadQueue.Add(new Uri(URL + "/" + file + ".zip"));
+                } else
+                {
+                    DownloadQueue.Add(new Uri(URL + "/" + file));
+                }
             }
 
             foreach(string dir in Dirs)
@@ -92,16 +98,20 @@ namespace ProjectUpdater
                 string localPath = file.LocalPath.Replace("/", "\\");
 
                 Utility.Download(file, Path + localPath);
-                using (ZipFile zip = ZipFile.Read(Path + localPath))
+                if (file.Segments[file.Segments.Length - 1] != "SU.version")
                 {
-                    
-                    foreach (ZipEntry e in zip)
+                    using (ZipFile zip = ZipFile.Read(Path + localPath))
                     {
-                        //Really fucking long complicated statement, but basicly gets the path of the folder without the filename
-                        e.Extract(Path + localPath.Remove(localPath.Length - file.Segments[file.Segments.Length - 1].Length, file.Segments[file.Segments.Length - 1].Length), ExtractExistingFileAction.OverwriteSilently);
+                        //This thing can throw a IOexption if a .tmp file is already there
+                        foreach (ZipEntry e in zip)
+                        {
+                            //Really fucking long complicated statement, but basicly gets the path of the folder without the filename
+                            e.Extract(Path + localPath.Remove(localPath.Length - file.Segments[file.Segments.Length - 1].Length, file.Segments[file.Segments.Length - 1].Length), ExtractExistingFileAction.OverwriteSilently);
+                        }
                     }
+                    System.IO.File.Delete(Path + localPath);
                 }
-                System.IO.File.Delete(Path + localPath);
+                
 
                 count++;
                 Log.add("Download Progress: " + count + "/" + Queue.Length);

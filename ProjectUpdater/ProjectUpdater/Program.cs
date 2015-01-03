@@ -24,9 +24,17 @@ namespace ProjectUpdater
             }
              * */
 
+            
             var updater = new Updater();
             updater.UpdateRepo("http://localhost/", @"C:\TestGenerate\download");
             
+
+            /*
+            var RepoGen = new RepoGenerator();
+            RepoGen.Generate(@"C:\TestGenerate\mods", @"C:\TestGenerate\output");
+            */
+
+            Console.Read();
         }
     }
 }

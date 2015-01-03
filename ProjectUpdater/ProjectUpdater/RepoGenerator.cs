@@ -126,26 +126,32 @@ namespace ProjectUpdater
                 //Compress all known files
                 foreach (string file in ParsedAllFiles)
                 {
-                    using(ZipFile zip = new ZipFile())
+                    if (file != "SU.version")
                     {
-                        Directory.SetCurrentDirectory(path);
-                        zip.AddFile(file);
-                        zip.Save(outputpath + "\\" + file + ".zip");
-                        
-                    }
-
-                    //Make hash of file
-                    byte[] FileData;
-                    using (var md5 = MD5.Create())
-                    {
-                        using (var stream = File.OpenRead(outputpath + "\\" + file + ".zip"))
+                        using (ZipFile zip = new ZipFile())
                         {
-                            FileData = md5.ComputeHash(stream);
-                        }
-                    }
+                            Directory.SetCurrentDirectory(path);
+                            zip.AddFile(file);
+                            zip.Save(outputpath + "\\" + file + ".zip");
 
-                    string ParsedHash = Utility.ToHex(FileData, false);
-                    File.WriteAllText(outputpath + "\\" + file + ".hash", ParsedHash);
+                        }
+
+                        //Make hash of file
+                        byte[] FileData;
+                        using (var md5 = MD5.Create())
+                        {
+                            using (var stream = File.OpenRead(outputpath + "\\" + file + ".zip"))
+                            {
+                                FileData = md5.ComputeHash(stream);
+                            }
+                        }
+
+                        string ParsedHash = Utility.ToHex(FileData, false);
+                        File.WriteAllText(outputpath + "\\" + file + ".hash", ParsedHash);
+                    } else if (file == "SU.version")
+                    {
+                        File.Copy(path + "\\" + "SU.version", outputpath + "\\" + "SU.version");
+                    }
                 }
 
                 //Re run the function for new folders

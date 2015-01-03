@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ionic.Zip;
+using System.IO;
 
 namespace ProjectUpdater
 {
@@ -22,13 +23,46 @@ namespace ProjectUpdater
 
             for (int i = 0; i < Modlist.Length; i++)
             {
-                Log.add("Download Queue progress: " + (i + 1) + "/" + Modlist.Length);
-                GetAllFiles(URL + "/" + Modlist[i]);
+                string Mod = Modlist[i];
+                Log.add("Modlist filling progress: " + (i + 1) + "/" + Modlist.Length);
+
+                //Mod is not downloaded
+                if(!Directory.Exists(Path + "\\" + Mod))
+                {
+                    GetAllFiles(URL + "/" + Mod);
+                }
+
+                if(Directory.Exists(Path + "\\" + Mod))
+                {
+                    if (File.Exists(Path + "\\" + Mod + "\\SU.version"))
+                    {
+                        //Mod found and Up to date with server
+                        if (File.ReadAllText(Path + "\\" + Mod + "\\SU.version") == Utility.WebRead(URL + "/" + Mod + "/SU.version"))
+                        {
+
+                        }
+
+                        //Mod found, but not up to date
+                        if (File.ReadAllText(Path + "\\" + Mod + "\\SU.version") != Utility.WebRead(URL + "/" + Mod + "/SU.version"))
+                        {
+                            GetAllFiles(URL + "/" + Mod);
+                        }
+                    }
+                    else
+                    {
+                        //Version file not found (At this point run verifyer and let that add to download queue
+                        GetAllFiles(URL + "/" + Mod);
+                    }
+                }
             }
 
-            DownloadExtract(Path, DownloadQueue.ToArray(), URL);
+            DownloadExtract(Path, DownloadQueue.ToArray());
         }
 
+        /// <summary>
+        /// Class for filling updater download queue.
+        /// </summary>
+        /// <param name="URL">URL to root of folder of mod</param>
         void GetAllFiles(string URL)
         {
             string[] Files = Utility.WebReadLines(URL + "/" + "files.cfg");
@@ -45,7 +79,12 @@ namespace ProjectUpdater
             }
         }
 
-        public static void DownloadExtract(string Path, Uri[] Queue, string BaseURL)
+        /// <summary>
+        /// Public class for actualy downloading mods, needs to be improved with verifyer and such.
+        /// </summary>
+        /// <param name="Path">Download path</param>
+        /// <param name="Queue">Array of URI's to download</param>
+        public static void DownloadExtract(string Path, Uri[] Queue)
         {
             int count = 0;
             foreach(Uri file in Queue)

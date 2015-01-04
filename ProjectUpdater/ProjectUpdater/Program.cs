@@ -26,7 +26,7 @@ namespace ProjectUpdater
 
             
             var updater = new Updater();
-            updater.UpdateRepo("http://localhost/", @"C:\TestGenerate\download");
+            updater.UpdateRepo("http://shittyplayer.com/riprip/", @"C:\TestGenerate\download");
             
 
             /*

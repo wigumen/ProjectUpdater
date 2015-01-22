@@ -11,30 +11,7 @@ namespace ProjectUpdater
     {
         static void Main(string[] args)
         {
-            /*
-            for(int i = 0; i < args.Length; i++)
-            {
-                var arg = args[i];
-
-                if (arg == "gen")
-                {
-                    var RepoGen = new RepoGenerator();
-                    RepoGen.Generate(args[i + 1], args[i + 2]);
-                }
-            }
-             * */
-
-            
-            var updater = new Updater();
-            updater.UpdateRepo("http://shittyplayer.com/riprip/", @"C:\TestGenerate\download");
-            
-
-            /*
-            var RepoGen = new RepoGenerator();
-            RepoGen.Generate(@"C:\TestGenerate\mods", @"C:\TestGenerate\output");
-            */
-
-            Console.Read();
+            ConsoleUI.Init();
         }
     }
 }

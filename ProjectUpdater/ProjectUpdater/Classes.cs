@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProjectUpdater
 {
-    class FileObject
+    public class Mod
     {
-        public string[] Files { get; set; }
-        public string[] Directories { get; set; }
+        public string mod { get; set; }
+        public string version { get; set; }
+    }
+
+    public class VersionFile
+    {
+        public List<Mod> mods { get; set; }
     }
 }

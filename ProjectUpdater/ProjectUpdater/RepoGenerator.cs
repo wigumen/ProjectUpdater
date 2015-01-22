@@ -6,11 +6,14 @@ using System.IO;
 using System.IO.Compression;
 using Ionic.Zip;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
+
 
 namespace ProjectUpdater
 {
     class RepoGenerator
     {
+
         /// <summary>
         /// Main repo generation thread
         /// </summary>
@@ -151,7 +154,7 @@ namespace ProjectUpdater
                         File.WriteAllText(outputpath + "\\" + file + ".hash", ParsedHash);
                     } else if (file == "SU.version")
                     {
-                        File.Copy(path + "\\" + "SU.version", outputpath + "\\" + "SU.version");
+                        //File.Copy(path + "\\" + "SU.version", outputpath + "\\" + "SU.version");
                     }
                 }
 
@@ -166,6 +169,40 @@ namespace ProjectUpdater
             {
                 throw new Exception("Could not find RepoGen folder");
             }
+        }
+
+        /// <summary>
+        /// Class for generateing version files
+        /// </summary>
+        public void GenerateVersionFiles(string path, string output)
+        {
+            string[] RawAllDirectories = Directory.GetDirectories(path);
+            string[] ParsedAllDirectories = new string[RawAllDirectories.Length];
+            List<Mod> Versions = new List<Mod>();
+
+            for (int i = 0; i < RawAllDirectories.Length; i++)
+            {
+                ParsedAllDirectories[i] = RawAllDirectories[i].Remove(0, path.Length + 1);
+            }
+
+            foreach (string dir in ParsedAllDirectories)
+            {
+                Console.Write("Version for " + dir + ": ");
+                var input = Console.ReadLine();
+                Mod newMod = new Mod()
+                {
+                    mod = dir,
+                    version = input
+                };
+                Versions.Add(newMod);
+            }
+
+            VersionFile file = new VersionFile()
+            {
+                mods = Versions
+            };
+
+            File.WriteAllText(output + "\\ModVersions.json", JsonConvert.SerializeObject(file));
         }
     }
 }

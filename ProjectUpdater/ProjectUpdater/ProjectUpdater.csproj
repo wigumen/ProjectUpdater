@@ -68,6 +68,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RepoGenerator.cs" />
+    <Compile Include="SlickVerifier.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Utility.cs" />
     <Page Include="MainWindow.xaml">

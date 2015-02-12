@@ -17,10 +17,18 @@ namespace ProjectUpdater
         {
             string DownloadedString = "";
 
-            using(System.Net.WebClient client = new System.Net.WebClient())
+            try
             {
-                DownloadedString = client.DownloadString(URL);
+                using (System.Net.WebClient client = new System.Net.WebClient())
+                {
+                    DownloadedString = client.DownloadString(URL);
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error in Utility.WebRead: " + ex.ToString());
+            }
+
             return DownloadedString;
         }
 

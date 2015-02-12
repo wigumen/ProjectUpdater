@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Ionic.Zip;
 using System.IO;
+using System.Net;
+using System.ComponentModel;
 
 namespace ProjectUpdater
 {
@@ -117,5 +119,72 @@ namespace ProjectUpdater
                 Log.add("Download Progress: " + count + "/" + Queue.Length);
             }
         }
+        #region downloader (does not work correctly with cues)
+        public static void fDownloader(string url)
+        {
+            string filename = System.IO.Path.GetFileName(url);
+            System.Net.WebClient client = new System.Net.WebClient();
+            Console.WriteLine("\n");
+            client.DownloadProgressChanged += client_ProgressChanged;
+            client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_Completed);
+            try
+            {
+                client.DownloadFileAsync(new Uri(url), (filename));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: \n" + ex.ToString());
+                System.Threading.Thread.Sleep(100);
+            }
+        }
+        private static void client_ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            double bytesIn = double.Parse(e.BytesReceived.ToString());
+            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            double percentage = bytesIn / totalBytes * 100;
+            double d_recieved = ((e.BytesReceived));
+            double d_total = ((e.TotalBytesToReceive));
+
+            string[] range = setprefix(d_recieved);
+            string[] range2 = setprefix(d_total);
+            string per = e.ProgressPercentage.ToString();
+            Console.Write("\r");
+            Console.Write("\r" + range[0] + " " + range[1] + " / " + range2[0] + " " + range2[1] + " (" + per + " %)");
+        }
+        static String[] setprefix(Double number)
+        {
+            String result = null;
+            String prefix = null;
+            int tmp = Convert.ToInt32(number);
+            if (number >= 1024 && number < 1048576)
+            {
+                prefix = "KB";
+                result = (tmp / 1024).ToString();
+            }
+            if (number >= 1048576 && number < 1073741824)
+            {
+                prefix = "MB";
+                result = (tmp / 1024 / 1024).ToString();
+            }
+            if (number >= 1073741824)
+            {
+                prefix = "GB";
+                result = (tmp / 1024 / 1024 / 1024).ToString();
+            }
+            string[] returnresult = { result, prefix };
+            return returnresult;
+        }
+        private static void client_Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                Console.WriteLine("Download Canceled");
+            }
+            else
+            {
+                Console.WriteLine("\n\nDownload done!");
+            }
+        }
+        #endregion
     }
 }

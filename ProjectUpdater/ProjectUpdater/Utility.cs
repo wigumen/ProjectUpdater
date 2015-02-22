@@ -33,6 +33,11 @@ namespace ProjectUpdater
             return DownloadedString;
         }
 
+        /// <summary>
+        /// Basic function for reading web text into a string array
+        /// </summary>
+        /// <param name="url">Url to textfile</param>
+        /// <returns></returns>
         public static string[] WebReadLines(string url)
         {
             System.Net.WebClient client = new System.Net.WebClient();
@@ -49,6 +54,12 @@ namespace ProjectUpdater
             return list.ToArray();
         }
 
+        /// <summary>
+        /// Converts MD5 bytes to a readably HEX
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="upperCase"></param>
+        /// <returns></returns>
         public static string ToHex(byte[] bytes, bool upperCase)
         {
             StringBuilder result = new StringBuilder(bytes.Length * 2);
@@ -59,6 +70,11 @@ namespace ProjectUpdater
             return result.ToString();
         }
 
+        /// <summary>
+        /// Downloads from the internet
+        /// </summary>
+        /// <param name="URL"></param>
+        /// <param name="Path"></param>
         public static void Download(Uri URL, string Path)
         {
             using(System.Net.WebClient client = new System.Net.WebClient())
@@ -69,5 +85,8 @@ namespace ProjectUpdater
                 System.IO.File.WriteAllBytes(file.FullName, data);
             }
         }
+
+
+
     }
 }

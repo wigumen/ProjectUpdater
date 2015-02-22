@@ -197,7 +197,7 @@ namespace ProjectUpdater
                 Versions.Add(newMod);
             }
 
-            VersionFile file = new VersionFile()
+            Version file = new Version()
             {
                 mods = Versions
             };

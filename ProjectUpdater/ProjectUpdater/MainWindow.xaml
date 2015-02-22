@@ -6,9 +6,7 @@
 
     <Grid>
         <Grid HorizontalAlignment="Left" Height="385" Margin="68,0,0,0" VerticalAlignment="Top" Width="711" Background="#FF282828">
-            <ComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22">
-                <ComboBoxItem Content="Arma 3 - Ayy Lmao this is a repo" Tag="url goes in here"/>
-            </ComboBox>
+            <ComboBox x:Name="RepoSelector" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22"/>
             <ListView x:Name="ModList" HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="White">
                 <ListView.View>
                     <GridView>

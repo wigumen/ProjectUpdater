@@ -71,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes.cs" />
     <Compile Include="ConsoleUI.cs" />
+    <Compile Include="VersionWrapper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RepoGenerator.cs" />

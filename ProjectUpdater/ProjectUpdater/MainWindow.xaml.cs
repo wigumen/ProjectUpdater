@@ -28,12 +28,36 @@ namespace ProjectUpdater
         public MainWindow()
         {
             InitializeComponent();
+            
+            /////^Make sure that runs before even thinking of touching GUI objects
+            VersionWrapper.Init();
+            Init();
             ModList.ItemsSource = ListViewCollection;
+        }
+
+        public void Init()
+        {
+            //Init Repo dropdown
+            UpdateRepoSelector();
+        }
+
+        void UpdateRepoSelector()
+        {
+            List<Repos> repos = VersionWrapper.GetRepos();
+            foreach(Repos repo in repos)
+            {
+                RepoSelector.Items.Add(new ComboBoxItem
+                {
+                    Tag = repo.url,
+                    Content = repo.name
+                });
+            }
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            string[] Mods = Utility.WebReadLines("http://shittyplayer.com/riprip/modlist.cfg");
+            string URL = VersionWrapper.GetRepos()[RepoSelector.SelectedIndex].url;
+            string[] Mods = Utility.WebReadLines(URL + "modlist.cfg");
 
             List<string> Version = new List<string>();
             foreach (string mod in Mods)
@@ -47,13 +71,14 @@ namespace ProjectUpdater
             {
                 ListViewCollection.Add(new ModEntry
                 {
-                    Color = Brushes.Green,
+                    Color = Brushes.LightGreen,
                     mod = Mods[i],
                     version = Version.ToArray()[i],
                     serverversion = Version.ToArray()[i]
                 });
             }
         }
+
 
     }
 

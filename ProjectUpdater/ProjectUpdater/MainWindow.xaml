@@ -9,17 +9,33 @@
             <ComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22">
                 <ComboBoxItem Content="Arma 3 - Ayy Lmao this is a repo" Tag="url goes in here"/>
             </ComboBox>
-            <ListBox HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="#FF171717">
-                <ListBoxItem Content="Ayy lamo mod 1" Foreground="White"/>
-            </ListBox>
-            <Button Content="Refresh" HorizontalAlignment="Left" Margin="608,41,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
-            <Button Content="Launch options" HorizontalAlignment="Left" Margin="608,78,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
-            <Button Content="Verify files" HorizontalAlignment="Left" Margin="608,115,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
-            <Button Content="Launch Arma 3" HorizontalAlignment="Left" Margin="608,311,0,0" VerticalAlignment="Top" Width="103" Height="64"/>
-            <Button Content="Join PA server" HorizontalAlignment="Left" Margin="608,258,0,0" VerticalAlignment="Top" Width="103" Height="48"/>
+            <ListView x:Name="ModList" HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="White">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="30">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Background="{Binding Color}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="Auto" Header="Mod" 
+                                        DisplayMemberBinding="{Binding mod}"/>
+                        <GridViewColumn Width="Auto" Header="Version" 
+                                        DisplayMemberBinding="{Binding version}"/>
+                        <GridViewColumn Width="Auto" Header="Server Version" 
+                                        DisplayMemberBinding="{Binding serverversion}"/>
+                    </GridView>
+                </ListView.View>
+             </ListView>
+            <Button x:Name="refresh_button" Content="Refresh" HorizontalAlignment="Left" Margin="608,41,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="Refresh_Click"/>
+            <Button x:Name="launchoptions_button" Content="Launch options" HorizontalAlignment="Left" Margin="608,78,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
+            <Button x:Name="verify_button" Content="Verify files" HorizontalAlignment="Left" Margin="608,115,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
+            <Button x:Name="launch_button" Content="Launch Arma 3" HorizontalAlignment="Left" Margin="608,311,0,0" VerticalAlignment="Top" Width="93" Height="64"/>
+            <Button x:Name="join_button" Content="Join PA server" HorizontalAlignment="Left" Margin="608,258,0,0" VerticalAlignment="Top" Width="93" Height="48"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="385" VerticalAlignment="Top" Width="68">
-            <Button Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,320,0,0"/>
+        <Grid HorizontalAlignment="Left" Height="385" VerticalAlignment="Top" Width="68" Background="#FF282828">
+            <Button Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,310,0,0"/>
             <Button Content="ARMA2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,65,0,0"/>
             <Button Content="ARMA3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65"/>
         </Grid>

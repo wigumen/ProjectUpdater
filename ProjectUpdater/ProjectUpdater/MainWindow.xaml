@@ -1,8 +1,27 @@
 ﻿<Window x:Class="ProjectUpdater.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="415" Width="787"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+
     <Grid>
-        
+        <Grid HorizontalAlignment="Left" Height="385" Margin="68,0,0,0" VerticalAlignment="Top" Width="711" Background="#FF282828">
+            <ComboBox HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22">
+                <ComboBoxItem Content="Arma 3 - Ayy Lmao this is a repo" Tag="url goes in here"/>
+            </ComboBox>
+            <ListBox HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="#FF171717">
+                <ListBoxItem Content="Ayy lamo mod 1" Foreground="White"/>
+            </ListBox>
+            <Button Content="Refresh" HorizontalAlignment="Left" Margin="608,41,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
+            <Button Content="Launch options" HorizontalAlignment="Left" Margin="608,78,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
+            <Button Content="Verify files" HorizontalAlignment="Left" Margin="608,115,0,0" VerticalAlignment="Top" Width="103" Height="32"/>
+            <Button Content="Launch Arma 3" HorizontalAlignment="Left" Margin="608,311,0,0" VerticalAlignment="Top" Width="103" Height="64"/>
+            <Button Content="Join PA server" HorizontalAlignment="Left" Margin="608,258,0,0" VerticalAlignment="Top" Width="103" Height="48"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="385" VerticalAlignment="Top" Width="68">
+            <Button Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,320,0,0"/>
+            <Button Content="ARMA2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,65,0,0"/>
+            <Button Content="ARMA3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65"/>
+        </Grid>
     </Grid>
 </Window>

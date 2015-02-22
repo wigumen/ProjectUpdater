@@ -9,6 +9,7 @@ namespace ProjectUpdater
 {
     class Program
     {
+        static bool isConsoleMode = false;
         static void Main(string[] args)
         {
             ConsoleUI.Init();

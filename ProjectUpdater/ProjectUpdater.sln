@@ -7,10 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectUpdater", "ProjectUp
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ConsoleMode|Any CPU = ConsoleMode|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03812214-B0F7-4F17-B77B-D0719CC5AEA0}.ConsoleMode|Any CPU.ActiveCfg = ConsoleMode|Any CPU
+		{03812214-B0F7-4F17-B77B-D0719CC5AEA0}.ConsoleMode|Any CPU.Build.0 = ConsoleMode|Any CPU
 		{03812214-B0F7-4F17-B77B-D0719CC5AEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03812214-B0F7-4F17-B77B-D0719CC5AEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03812214-B0F7-4F17-B77B-D0719CC5AEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU

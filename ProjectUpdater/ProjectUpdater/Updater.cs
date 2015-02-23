@@ -15,51 +15,88 @@ namespace ProjectUpdater
         List<Uri> DownloadQueue = new List<Uri>();
 
         /// <summary>
-        /// The actual updater class, this downloads everything from internet repos to your local client
+        /// The actual updater class, this checks if everything from internet repos to your local client are up to date
         /// </summary>
         /// <param name="URL">The web link to the root of the repository</param>
         /// <param name="Path">Path to where to download repository</param>
-        public void UpdateRepo(string URL, string Path)
+        public ModEntryState UpdateRepo(string URL, string Path)
         {
+            
             string[] Modlist = Utility.WebReadLines(URL + "/" + "modlist.cfg");
+            ModEntryState ModState = new ModEntryState();
+            ModState.ModNames = Modlist;
+
+            List<string> ModVersions = new List<string>();
+            List<string> ServerModVersions = new List<string>();
+            List<state> States = new List<state>();
 
             for (int i = 0; i < Modlist.Length; i++)
             {
                 string Mod = Modlist[i];
+                string ServerVersion = Utility.WebRead(URL + "/" + Mod + "/SU.version");
+                string LocalVersion = "-";
+                state State = state.New;
+
                 Log.add("Modlist filling progress: " + (i + 1) + "/" + Modlist.Length);
 
                 //Mod is not downloaded
                 if(!Directory.Exists(Path + "\\" + Mod))
                 {
                     GetAllFiles(URL + "/" + Mod);
+                    State = state.New;
                 }
 
                 if(Directory.Exists(Path + "\\" + Mod))
                 {
+                    
                     if (File.Exists(Path + "\\" + Mod + "\\SU.version"))
                     {
+                        LocalVersion = File.ReadAllText(Path + "\\" + Mod + "\\SU.version");
                         //Mod found and Up to date with server
-                        if (File.ReadAllText(Path + "\\" + Mod + "\\SU.version") == Utility.WebRead(URL + "/" + Mod + "/SU.version"))
+                        if (LocalVersion == ServerVersion)
                         {
-
+                            State = state.Updated;
                         }
 
                         //Mod found, but not up to date
-                        if (File.ReadAllText(Path + "\\" + Mod + "\\SU.version") != Utility.WebRead(URL + "/" + Mod + "/SU.version"))
+                        if (LocalVersion != ServerVersion)
                         {
                             GetAllFiles(URL + "/" + Mod);
+                            State = state.Outdated;
                         }
                     }
                     else
                     {
                         //Version file not found (At this point run verifyer and let that add to download queue
                         GetAllFiles(URL + "/" + Mod);
+                        State = state.MissingVersion;
                     }
                 }
+                ModVersions.Add(LocalVersion);
+                ServerModVersions.Add(ServerVersion);
+                States.Add(State);
             }
 
-            DownloadExtract(Path, DownloadQueue.ToArray());
-        }
+            if(DownloadQueue.Count == 0)
+            {
+                ModState.isUptodate = true;
+            }
+
+            if(DownloadQueue.Count != 0)
+            {
+                ModState.isUptodate = false;
+            }
+
+            ModState.version = ModVersions.ToArray();
+            ModState.versionOnServer = ServerModVersions.ToArray();
+            ModState.State = States.ToArray();
+
+                return ModState;
+            //Dont need to run this if not the console UI version
+            #if ConsoleMode
+                DownloadExtract(Path, DownloadQueue.ToArray());
+            #endif
+            }
 
         /// <summary>
         /// Class for filling updater download queue.

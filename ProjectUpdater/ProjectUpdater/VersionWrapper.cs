@@ -14,13 +14,13 @@ namespace ProjectUpdater
 
         /// <summary>
         /// Initilization for entire class
-        /// </summary>
+        /// </summary>zz
         public static void Init()
         {
             _VersionFile = JsonConvert.DeserializeObject<VersionFile>(Utility.WebRead(VersionFileURL));
         }
 
-        public static List<Repos> GetRepos(){ return _VersionFile.repos; }
+        public static List<Repo> GetRepos(){ return _VersionFile.repos; }
         public static string GetVersion(){ return _VersionFile.version; }
         public static string GetUpdateDownload(){ return _VersionFile.download; }
     }

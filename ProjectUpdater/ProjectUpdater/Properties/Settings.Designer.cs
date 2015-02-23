@@ -70,5 +70,17 @@ namespace ProjectUpdater.Properties {
                 this["TeamSpeak3Path"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SelectedRepo {
+            get {
+                return ((int)(this["SelectedRepo"]));
+            }
+            set {
+                this["SelectedRepo"] = value;
+            }
+        }
     }
 }

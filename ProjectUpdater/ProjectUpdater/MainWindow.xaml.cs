@@ -22,17 +22,18 @@ namespace ProjectUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        string URL = "http://shittyplayer.com/riprip/";
-        ObservableCollection<ModEntry> ListViewCollection = new ObservableCollection<ModEntry>();
+        ObservableCollection<ModEntry> ModListCollection = new ObservableCollection<ModEntry>();
+        Updater MainUpdater = new Updater();
+        String CurrentPath = "";
+        Repo CurrentRepo;
 
         public MainWindow()
         {
             InitializeComponent();
-            
             /////^Make sure that runs before even thinking of touching GUI objects
             VersionWrapper.Init();
             Init();
-            ModList.ItemsSource = ListViewCollection;
+            ModList.ItemsSource = ModListCollection;
         }
 
         public void Init()
@@ -40,12 +41,80 @@ namespace ProjectUpdater
             //Init Repo dropdown
             UpdateRepoSelector();
             Utility.InitSettingsPaths();
+            //Check if repo is up to date
+            CheckRepoUpdated();
+        }
+
+        public void CheckRepoUpdated()
+        {
+            CurrentRepo = VersionWrapper.GetRepos()[RepoSelector.SelectedIndex];
+            ModEntryState Mods = null;
+
+            if (CurrentRepo.game == "arma3")
+            {
+                Mods = MainUpdater.UpdateRepo(CurrentRepo.url, Properties.Settings.Default.Arma3Path);
+                if (Mods.isUptodate == false)
+                {
+                    launch_button.Content = "Update Arma 3";
+                }
+            }
+            if (CurrentRepo.game == "arma2")
+            {
+                Mods = MainUpdater.UpdateRepo(CurrentRepo.url, Properties.Settings.Default.Arma2OAPath);
+                if (MainUpdater.UpdateRepo(CurrentRepo.url, Properties.Settings.Default.Arma2OAPath).isUptodate == false)
+                {
+                    launch_button.Content = "Update Arma 2";
+                }
+            }
+
+            string URL = CurrentRepo.url;
+
+            ModListCollection.Clear();
+
+            for (int i = 0; i < Mods.ModNames.Length; i++)
+            {
+                string tooltip = "LOLDUNNO";
+                System.Windows.Media.SolidColorBrush color = Brushes.Pink;
+
+                if (Mods.State[i] == state.New)
+                {
+                    color = Brushes.Blue;
+                    tooltip = "New Mod Avaliable";
+                }
+
+                if (Mods.State[i] == state.Outdated)
+                {
+                    color = Brushes.Red;
+                    tooltip = "Mod is outdated";
+                }
+
+                if (Mods.State[i] == state.Updated)
+                {
+                    color = Brushes.Green;
+                    tooltip = "Mod is up to date";
+                }
+
+                if (Mods.State[i] == state.MissingVersion)
+                {
+                    color = Brushes.GhostWhite;
+                    tooltip = "Mod is missing version file";
+                }
+
+                ModListCollection.Add(new ModEntry
+                {
+                    Color = color,
+                    Tooltip = tooltip,
+                    mod = Mods.ModNames[i],
+                    version = Mods.version[i],
+                    serverversion = Mods.versionOnServer[i]
+                });
+            }
         }
 
         void UpdateRepoSelector()
         {
-            List<Repos> repos = VersionWrapper.GetRepos();
-            foreach(Repos repo in repos)
+            List<Repo> repos = VersionWrapper.GetRepos();
+            foreach(Repo repo in repos)
             {
                 RepoSelector.Items.Add(new ComboBoxItem
                 {
@@ -53,37 +122,20 @@ namespace ProjectUpdater
                     Content = repo.name
                 });
             }
+            RepoSelector.SelectedIndex = Properties.Settings.Default.SelectedRepo;
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            string URL = VersionWrapper.GetRepos()[RepoSelector.SelectedIndex].url;
-            string[] Mods = Utility.WebReadLines(URL + "modlist.cfg");
-
-            List<string> Version = new List<string>();
-            foreach (string mod in Mods)
-            {
-                Version.Add(Utility.WebRead(URL + "\\" + mod + "\\SU.version"));
-            }
-
-            ListViewCollection.Clear();
-
-            for (int i = 0; i < Mods.Length; i++)
-            {
-                ListViewCollection.Add(new ModEntry
-                {
-                    Color = Brushes.Green,
-                    Tooltip = "Mod is up to date",
-                    mod = Mods[i],
-                    version = Version.ToArray()[i],
-                    serverversion = Version.ToArray()[i]
-                });
-            }
+            CheckRepoUpdated();
         }
 
         private void RepoChanged(object sender, SelectionChangedEventArgs e)
         {
             Refresh_Click(null, null);
+            CurrentRepo = VersionWrapper.GetRepos()[RepoSelector.SelectedIndex];
+            Properties.Settings.Default.SelectedRepo = RepoSelector.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
 
         private void Options_click(object sender, RoutedEventArgs e)
@@ -100,6 +152,11 @@ namespace ProjectUpdater
             Options_Button.IsEnabled = true;
             this.IsEnabled = true;
             Properties.Settings.Default.Save();
+        }
+
+        private void launch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
 

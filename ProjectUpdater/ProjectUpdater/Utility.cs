@@ -87,6 +87,9 @@ namespace ProjectUpdater
             }
         }
 
+        /// <summary>
+        /// Gets as many paths as possible from the windows registry
+        /// </summary>
         public static void InitSettingsPaths()
         {
             if (Properties.Settings.Default.Arma3Path == null || Properties.Settings.Default.Arma3Path == String.Empty)
@@ -104,7 +107,6 @@ namespace ProjectUpdater
                 if (RegistryValue != null)
                 {
                     Properties.Settings.Default.Arma2Path = RegistryValue;
-
                 }
             }
 

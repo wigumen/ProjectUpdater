@@ -26,7 +26,24 @@ namespace ProjectUpdater
         public string serverversion { get; set; }
     }
 
-    public class Repos
+    public class ModEntryState
+    {
+        public bool isUptodate { get; set; }
+        public string[] ModNames { get; set; }
+        public state[] State { get; set; }
+        public string[] version { get; set; }
+        public string[] versionOnServer { get; set; }
+    }
+
+    public enum state
+    {
+        Outdated,
+        MissingVersion,
+        New,
+        Updated
+    }
+
+    public class Repo
     {
         public string name { get; set; }
         public string url { get; set; }
@@ -40,6 +57,6 @@ namespace ProjectUpdater
     {
         public string version { get; set; }
         public string download { get; set; }
-        public List<Repos> repos { get; set; }
+        public List<Repo> repos { get; set; }
     }
 }

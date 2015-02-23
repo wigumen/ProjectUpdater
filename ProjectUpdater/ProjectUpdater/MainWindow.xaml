@@ -7,7 +7,7 @@
     <Grid>
         <Grid HorizontalAlignment="Left" Height="385" Margin="68,0,0,0" VerticalAlignment="Top" Width="711" Background="#FF282828">
             <ComboBox x:Name="RepoSelector" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22" SelectionChanged="RepoChanged"/>
-            <ListView x:Name="ModList" HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="White">
+            <ListView x:Name="ModList" HorizontalAlignment="Left" Height="300" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="White">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="30">
@@ -29,8 +29,9 @@
             <Button x:Name="refresh_button" Content="Refresh" HorizontalAlignment="Left" Margin="608,41,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="Refresh_Click"/>
             <Button x:Name="launchoptions_button" Content="Launch options" HorizontalAlignment="Left" Margin="608,78,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
             <Button x:Name="verify_button" Content="Verify files" HorizontalAlignment="Left" Margin="608,115,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
-            <Button x:Name="launch_button" Content="Launch Arma 3" HorizontalAlignment="Left" Margin="608,311,0,0" VerticalAlignment="Top" Width="93" Height="64"/>
+            <Button x:Name="launch_button" Content="Launch Arma 3" HorizontalAlignment="Left" Margin="608,311,0,0" VerticalAlignment="Top" Width="93" Height="64" Click="launch_Click"/>
             <Button x:Name="join_button" Content="Join PA server" HorizontalAlignment="Left" Margin="608,258,0,0" VerticalAlignment="Top" Width="93" Height="48"/>
+            <ProgressBar HorizontalAlignment="Left" Margin="10,346,0,0" VerticalAlignment="Top" Width="593" Height="29"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="385" VerticalAlignment="Top" Width="68" Background="#FF282828">
             <Button x:Name="Options_Button" Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,310,0,0" Click="Options_click"/>

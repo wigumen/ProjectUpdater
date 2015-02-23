@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
 
 namespace ProjectUpdater
 {
@@ -86,7 +87,54 @@ namespace ProjectUpdater
             }
         }
 
+        public static void InitSettingsPaths()
+        {
+            if (Properties.Settings.Default.Arma3Path == null || Properties.Settings.Default.Arma3Path == String.Empty)
+            {
+                string RegistryValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\bohemia interactive studio\ArmA 3", "main", null);
+                if (RegistryValue != null)
+                {
+                    Properties.Settings.Default.Arma3Path = RegistryValue;
+                }
+            }
 
+            if (Properties.Settings.Default.Arma2Path == null || Properties.Settings.Default.Arma2Path == String.Empty)
+            {
+                string RegistryValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\bohemia interactive studio\arma 2", "main", null);
+                if (RegistryValue != null)
+                {
+                    Properties.Settings.Default.Arma2Path = RegistryValue;
 
+                }
+            }
+
+            if (Properties.Settings.Default.Arma2OAPath == null || Properties.Settings.Default.Arma2OAPath == String.Empty)
+            {
+                string RegistryValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\bohemia interactive studio\arma 2 oa", "main", null);
+                if (RegistryValue != null)
+                {
+                    Properties.Settings.Default.Arma2OAPath = RegistryValue;
+
+                }
+            }
+
+            if (Properties.Settings.Default.TeamSpeak3Path == null || Properties.Settings.Default.TeamSpeak3Path == String.Empty)
+            {
+                string RegistryValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Classes\ts3file\shell\open\command", null, null);
+                //Clean up the registry value a bit
+                char[] trimChars = { '\"', '\\', '%', '1', ' ' };
+                RegistryValue = RegistryValue.Trim(trimChars);
+                if (RegistryValue.EndsWith(@"\ts3client_win32.exe") || RegistryValue.EndsWith(@"\ts3client_win64.exe"))
+                    RegistryValue = RegistryValue.Remove(RegistryValue.Length - @"\ts3client_winXX.exe".Length, @"\ts3client_winXX.exe".Length);
+
+                if (RegistryValue != null)
+                {
+                    Properties.Settings.Default.TeamSpeak3Path = RegistryValue;
+
+                }
+            }
+
+            Properties.Settings.Default.Save();
+        }
     }
 }

@@ -2,18 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="415" Width="787"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" ResizeMode="CanMinimize">
 
     <Grid>
         <Grid HorizontalAlignment="Left" Height="385" Margin="68,0,0,0" VerticalAlignment="Top" Width="711" Background="#FF282828">
-            <ComboBox x:Name="RepoSelector" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22"/>
+            <ComboBox x:Name="RepoSelector" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="691" Background="#FF282828" BorderBrush="#FF282828" SelectedIndex="0" Foreground="White" FontFamily="Consolas" FontSize="22" SelectionChanged="RepoChanged"/>
             <ListView x:Name="ModList" HorizontalAlignment="Left" Height="334" Margin="10,41,0,0" VerticalAlignment="Top" Width="593" Foreground="White" BorderBrush="White" Background="White">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="30">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Background="{Binding Color}"></TextBlock>
+                                    <Ellipse Height="16" Width="16" Fill="{Binding Color}" ToolTip="{Binding Tooltip}"></Ellipse>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -25,7 +25,7 @@
                                         DisplayMemberBinding="{Binding serverversion}"/>
                     </GridView>
                 </ListView.View>
-             </ListView>
+            </ListView>
             <Button x:Name="refresh_button" Content="Refresh" HorizontalAlignment="Left" Margin="608,41,0,0" VerticalAlignment="Top" Width="93" Height="32" Click="Refresh_Click"/>
             <Button x:Name="launchoptions_button" Content="Launch options" HorizontalAlignment="Left" Margin="608,78,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
             <Button x:Name="verify_button" Content="Verify files" HorizontalAlignment="Left" Margin="608,115,0,0" VerticalAlignment="Top" Width="93" Height="32"/>
@@ -33,7 +33,7 @@
             <Button x:Name="join_button" Content="Join PA server" HorizontalAlignment="Left" Margin="608,258,0,0" VerticalAlignment="Top" Width="93" Height="48"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="385" VerticalAlignment="Top" Width="68" Background="#FF282828">
-            <Button Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,310,0,0"/>
+            <Button x:Name="Options_Button" Content="Options" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,310,0,0" Click="Options_click"/>
             <Button Content="ARMA2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65" Margin="0,65,0,0"/>
             <Button Content="ARMA3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="65"/>
         </Grid>

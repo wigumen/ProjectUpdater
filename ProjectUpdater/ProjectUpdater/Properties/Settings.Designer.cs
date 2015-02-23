@@ -26,12 +26,48 @@ namespace ProjectUpdater.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public string Arma3Path {
             get {
-                return ((string)(this["Setting"]));
+                return ((string)(this["Arma3Path"]));
             }
             set {
-                this["Setting"] = value;
+                this["Arma3Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Arma2Path {
+            get {
+                return ((string)(this["Arma2Path"]));
+            }
+            set {
+                this["Arma2Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Arma2OAPath {
+            get {
+                return ((string)(this["Arma2OAPath"]));
+            }
+            set {
+                this["Arma2OAPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TeamSpeak3Path {
+            get {
+                return ((string)(this["TeamSpeak3Path"]));
+            }
+            set {
+                this["TeamSpeak3Path"] = value;
             }
         }
     }

@@ -39,6 +39,7 @@ namespace ProjectUpdater
         {
             //Init Repo dropdown
             UpdateRepoSelector();
+            Utility.InitSettingsPaths();
         }
 
         void UpdateRepoSelector()
@@ -71,12 +72,34 @@ namespace ProjectUpdater
             {
                 ListViewCollection.Add(new ModEntry
                 {
-                    Color = Brushes.LightGreen,
+                    Color = Brushes.Green,
+                    Tooltip = "Mod is up to date",
                     mod = Mods[i],
                     version = Version.ToArray()[i],
                     serverversion = Version.ToArray()[i]
                 });
             }
+        }
+
+        private void RepoChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Refresh_Click(null, null);
+        }
+
+        private void Options_click(object sender, RoutedEventArgs e)
+        {
+            Window newOptionsWindow = new Options();
+            Options_Button.IsEnabled = false;
+            newOptionsWindow.Closed += newOptionsWindow_Closed;
+            newOptionsWindow.Show();
+            this.IsEnabled = false;
+        }
+
+        private void newOptionsWindow_Closed(object sender, EventArgs e)
+        {
+            Options_Button.IsEnabled = true;
+            this.IsEnabled = true;
+            Properties.Settings.Default.Save();
         }
 
 

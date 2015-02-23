@@ -1,0 +1,22 @@
+﻿<Window x:Class="ProjectUpdater.Options"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Options" Height="350" Width="579" ResizeMode="NoResize">
+    <Grid HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="579" Background="#FF282828" Margin="0,0,-8,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="402*"/>
+            <ColumnDefinition Width="38*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Arma 3 Path:" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Right" Width="119"/>
+        <TextBox x:Name="a3path_textbox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" TextChanged="a3path_Update"/>
+        <Label Content="Arma 2 Path:" HorizontalAlignment="Right" Margin="0,41,10,0" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Right" Width="119"/>
+        <TextBox x:Name="a2path_textbox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" TextChanged="a2path_Update"/>
+        <Label Content="Arma 2 OA Path:" HorizontalAlignment="Right" Margin="0,72,10,0" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Right" Width="119"/>
+        <TextBox x:Name="a2oapath_textbox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" TextChanged="a2OApath_Update"/>
+        <Label Content="TeamSpeak 3 Path:" HorizontalAlignment="Right" Margin="0,103,10,0" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Right" Width="119"/>
+        <TextBox x:Name="tspath_textbox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="382" TextChanged="ts3path_Update"/>
+        <Label Content="RPT Folder:" HorizontalAlignment="Right" Margin="0,134,10,0" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Right" Width="119"/>
+        <Button Content="Open RPT Folder" Grid.Column="1" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="382" Click="openRPT_click"/>
+        </Grid>
+</Window>

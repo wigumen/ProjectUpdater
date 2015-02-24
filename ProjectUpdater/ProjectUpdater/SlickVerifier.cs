@@ -92,7 +92,7 @@ namespace ProjectUpdater
                 if (mods.Contains(mod) == false)
                 {
                     //Adds result if the mods is not listed
-                    Results.Add(new ResultType { type = "MissingM", file=mod });
+                    Results.Add(new ResultType { type = Type.MissingMod, file=mod });
                 }
             }
 
@@ -110,12 +110,12 @@ namespace ProjectUpdater
                     if (File.Exists(tmppath) == false)
                     {
                         //if the file does not exist it will add it to the list and skip version check
-                        Results.Add(new ResultType { type = "MissingSUv", file = mod });
+                        Results.Add(new ResultType { type = Type.MissingSUversion, file = mod });
                         FileOk = false;
                     }
                     else
                     {
-                        Results.Add(new ResultType { type="WarnFileCaps", file=tmppath});
+                        Results.Add(new ResultType { type=Type.WarnFileCaps, file=tmppath});
                     }
                 }
 
@@ -125,7 +125,7 @@ namespace ProjectUpdater
                     if (CheckVersion(Dir + mod + "/SU.version", Url + mod + "/SU.version") == false)
                     {
                         //if the version is wrong, add to results
-                        Results.Add(new ResultType { type = "WrongV", file = mod });
+                        Results.Add(new ResultType { type = Type.WrongVersion, file = mod });
                     }
                     else
                     {
@@ -268,7 +268,7 @@ namespace ProjectUpdater
                 //Checks if the files in the RemoteFiles exists on local
                 if (File.Exists(Directory + "/" + file) == false)
                 {
-                    Results.Add(new ResultType { type="MissingFile", file=file});
+                    Results.Add(new ResultType { type=Type.MissingFile, file=file});
                 }
                 else
                 {
@@ -279,7 +279,7 @@ namespace ProjectUpdater
                     }
                     else
                     {
-                        Results.Add(new ResultType { type="FileNotAllowed", file=file});
+                        Results.Add(new ResultType { type=Type.FileNotAllowed, file=file});
                     }
                 }
             }
@@ -305,11 +305,11 @@ namespace ProjectUpdater
                 //if the file is somewhat wrong it will be added to redownload list
                 if (hash[2] == "False")
                 {
-                    Result.Add(new ResultType { type="HashFalse", file=Files[i]});
+                    Result.Add(new ResultType { type= Type.HashFalse, file=Files[i]});
                 }
                 else
                 {
-                    Result.Add(new ResultType { type = "HashTrue", file = Files[i] });
+                    Result.Add(new ResultType { type = Type.HashTrue, file = Files[i] });
                 }
             }
             return Result;
@@ -338,7 +338,7 @@ namespace ProjectUpdater
 
             if (CheckVersion(Dir + Mod + "/SU.version", Url + Mod + "/SU.version") == false)
             {
-                Results.Add(new ResultType { type = "WrongV", file="TSCheck> " + Mod });
+                Results.Add(new ResultType { type = Type.WrongVersion, file="TSCheck> " + Mod });
             }
             else
             {
@@ -352,7 +352,7 @@ namespace ProjectUpdater
                     //Checks if the files in the RemoteFiles exists on local
                     if (File.Exists(TSDir + "/" + file.Replace("@task_force_radio/plugin", "plugins")) == false)
                     {
-                        Results.Add(new ResultType { type = "MissingFile", file = file.Replace("@task_force_radio/plugin", "plugins") });
+                        Results.Add(new ResultType { type = Type.MissingFile, file = file.Replace("@task_force_radio/plugin", "plugins") });
                     }
                     else
                     {
@@ -370,11 +370,11 @@ namespace ProjectUpdater
                     //if the file is somewhat wrong it will be added to redownload list
                     if (hash[2] == "False")
                     {
-                        Results.Add(new ResultType { type = "HashFalse", file = list[i].Replace("@task_force_radio/plugin", "plugins") });
+                        Results.Add(new ResultType { type = Type.HashFalse, file = list[i].Replace("@task_force_radio/plugin", "plugins") });
                     }
                     else
                     {
-                        Results.Add(new ResultType { type = "HashTrue", file = list[i].Replace("@task_force_radio/plugin", "plugins") });
+                        Results.Add(new ResultType { type = Type.HashTrue, file = list[i].Replace("@task_force_radio/plugin", "plugins") });
                     }
                 }
             }
@@ -409,7 +409,7 @@ namespace ProjectUpdater
                 //if the modlist contains the mod and if the version between the repo and local is false; then add it to the list 
                 if (mods.Contains(tmp) && CheckVersion(Dir + "/" + tmp + "/SU.version", Url + tmp + "/SU.version") == false)
                 {
-                    Result.Add(new ResultType { type="NeedUpdate", file=dir.Replace(Dir + "\\", "")});
+                    Result.Add(new ResultType { type=Type.NeedUpdate, file=dir.Replace(Dir + "\\", "")});
                 }
             }
 
@@ -656,10 +656,23 @@ namespace ProjectUpdater
         /// <summary>
         /// Type of Result
         /// </summary>
-        public String type { get; set; }
+        public Type type { get; set; }
         /// <summary>
         /// Result Message
         /// </summary>
         public String file { get; set; }
+    }
+
+    public enum Type
+    {
+        NeedUpdate,
+        HashFalse,
+        HashTrue,
+        WrongVersion,
+        FileNotAllowed,
+        MissingFile,
+        WarnFileCaps,
+        MissingSUversion,
+        MissingMod
     }
 }

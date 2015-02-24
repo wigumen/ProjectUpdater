@@ -26,6 +26,7 @@ namespace ProjectUpdater
         Updater MainUpdater = new Updater();
         String CurrentPath = "";
         Repo CurrentRepo;
+        ModEntryState Mods = null;
 
         public MainWindow()
         {
@@ -48,7 +49,6 @@ namespace ProjectUpdater
         public void CheckRepoUpdated()
         {
             CurrentRepo = VersionWrapper.GetRepos()[RepoSelector.SelectedIndex];
-            ModEntryState Mods = null;
 
             if (CurrentRepo.game == "arma3")
             {
@@ -156,7 +156,23 @@ namespace ProjectUpdater
 
         private void launch_Click(object sender, RoutedEventArgs e)
         {
+            if(Mods != null)
+            {
+                if(Mods.isUptodate == true)
+                {
+                    //Launch this biatch
+                }
+                else
+                {
+                    if (CurrentRepo.game == "arma3")
+                        Updater.DownloadExtract(Properties.Settings.Default.Arma3Path, Updater.DownloadQueue.ToArray());
 
+                    if (CurrentRepo.game == "arma2")
+                        Updater.DownloadExtract(Properties.Settings.Default.Arma3Path, Updater.DownloadQueue.ToArray());
+                
+                
+                }
+            }
         }
 
 

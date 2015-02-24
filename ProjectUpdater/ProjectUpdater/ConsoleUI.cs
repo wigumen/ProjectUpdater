@@ -106,7 +106,7 @@ namespace ProjectUpdater
                 foreach (ResultType tmp in list)
                 {
                     //if the hash is false (file is corrupted) or the file is missing, print out under type "NeedUpdate"
-                    if (tmp.type == "HashFalse" || tmp.type == "MissingFile")
+                    if (tmp.type == Type.HashFalse || tmp.type == Type.MissingFile)
                     {
                         Console.WriteLine("NeedUpdate || " + tmp.file);
                         //fdownloader does not work as intended right now

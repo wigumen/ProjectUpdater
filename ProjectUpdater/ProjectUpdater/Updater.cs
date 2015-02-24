@@ -12,7 +12,7 @@ namespace ProjectUpdater
 {
     class Updater
     {
-        List<Uri> DownloadQueue = new List<Uri>();
+        public static List<Uri> DownloadQueue = new List<Uri>();
 
         /// <summary>
         /// The actual updater class, this checks if everything from internet repos to your local client are up to date
@@ -68,7 +68,14 @@ namespace ProjectUpdater
                     else
                     {
                         //Version file not found (At this point run verifyer and let that add to download queue
-                        GetAllFiles(URL + "/" + Mod);
+                        //GetAllFiles(URL + "/" + Mod);
+                        SlickVerifier verifyer = new SlickVerifier();
+                        List<ResultType> Results = verifyer.Verify(URL + "/" + Mod, Path + "\\" + Mod);
+                        foreach(var result in Results)
+                        {
+                            if (result.type == Type.MissingFile || result.type == Type.HashFalse)
+                                DownloadQueue.Add(new Uri(URL + "/" + result.file + ".zip"));
+                        }
                         State = state.MissingVersion;
                     }
                 }
